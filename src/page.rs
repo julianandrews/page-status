@@ -5,6 +5,8 @@ use anyhow::{Context, Result};
 
 use crate::config::PageConfig;
 
+static USER_AGENT: &str = concat!(env!("CARGO_PKG_NAME"), "/", env!("CARGO_PKG_VERSION"),);
+
 pub struct Page {
     request_builder: reqwest::RequestBuilder,
     poll_interval: Duration,
@@ -15,6 +17,7 @@ impl Page {
     pub fn from_config(conf: PageConfig, cache_file: PathBuf) -> Self {
         let client = reqwest::Client::new();
         let mut request_builder = client.request(conf.method.reqwest_method(), &conf.url);
+        request_builder = request_builder.header("user-agent", USER_AGENT);
         for (key, value) in &conf.headers {
             request_builder = request_builder.header(key, value);
         }
