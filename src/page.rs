@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use std::time::Duration;
 
 use anyhow::{Context, Result};
 
@@ -6,7 +7,7 @@ use crate::config::PageConfig;
 
 pub struct Page {
     request_builder: reqwest::RequestBuilder,
-    poll_interval: std::time::Duration,
+    poll_interval: Duration,
     cache_file: PathBuf,
 }
 
@@ -18,7 +19,7 @@ impl Page {
             request_builder = request_builder.header(key, value);
         }
         if let Some(timeout) = conf.timeout {
-            request_builder = request_builder.timeout(timeout);
+            request_builder = request_builder.timeout(Duration::from_secs(timeout));
         }
         let poll_interval = std::time::Duration::from_secs(conf.poll_interval);
 

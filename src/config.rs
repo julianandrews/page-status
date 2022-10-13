@@ -24,12 +24,12 @@ pub struct PageConfig {
     pub headers: BTreeMap<String, String>,
     #[serde(default = "default_poll_interval")]
     pub poll_interval: u64,
-    pub timeout: Option<std::time::Duration>,
+    pub timeout: Option<u64>,
 }
 
 #[derive(Deserialize, Debug, Clone)]
 pub enum Method {
-    // TODO: Add other methods. These two are the ones I have use for right now though!
+    // TODO: Add more methods.
     Get,
     Head,
 }
