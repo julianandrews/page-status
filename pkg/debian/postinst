@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+USER=page-status
+CACHE_DIR=/var/cache/page-status
+
+create_user() {
+    if id "${USER}" > /dev/null 2>&1; then return; fi
+    adduser --system "$USER" --group
+}
+
+create_cache_dir() {
+    mkdir -p "$CACHE_DIR"
+    chown $USER:$USER $CACHE_DIR
+    chmod 775 $CACHE_DIR
+}
+
+case "$1" in
+configure)
+    create_user
+    create_cache_dir
+    ;;
+esac
+
+#DEBHELPER#

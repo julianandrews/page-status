@@ -1,0 +1,18 @@
+# cache-dir = "/var/cache/page-status/cache"
+
+[pages]
+
+# Add your own pages here. "url" is required, all other fields have sensible defaults.
+# See the examples below.
+
+# [pages.minimal]
+# url = "https://example.com/example"
+
+# [pages.full]
+# url = "https://example.com/example"
+# method = "Head"
+# poll-interval = 30
+# timeout = 10
+# [pages.full.headers]
+# Authorization = "Bearer MONdXdlE4JJAZqvgtFsz"
+# Accept = "text/html"

@@ -1,0 +1,10 @@
+[Unit]
+Description=page-status web page checker
+
+[Service]
+User=page-status
+Group=page-status
+ExecStart=/usr/bin/page-status
+
+[Install]
+WantedBy=multi-user.target

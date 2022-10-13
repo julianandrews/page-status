@@ -1,9 +1,12 @@
 [package]
 name = "page-status"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Julian Andrews <jandrews271@gmail.com>"]
+readme = "README.md"
+license = "BSD-3-Clause"
+repository = "https://github.com/julianandrews/page-status"
+description = "Light-weight service to poll webpages for status codes"
 
 [dependencies]
 anyhow = "1.0.65"
@@ -13,3 +16,27 @@ toml = "0.5.9"
 serde = { version = "1.0", features = ["derive"] }
 tokio = { version = "1.21.1", features = ["full"] }
 futures = "0.3.24"
+
+[package.metadata.deb]
+extended-description = """\
+Light-weight service designed to poll web pages for their status codes and \
+write the result to disk.
+
+I made page-status to use with a simple xmobar status script to alert me on \
+my local desktop if one of my sites was down. It makes no attempt to do \
+monitoring or alerting beyond recording the status codes from the \
+configured websites. It is a simple single purpose tool intended to provide \
+data useful for some other monitoring or alerting solution.
+
+By default output is written to `/var/cache/page-status` with one file per \
+page. Files will either contain the http status code of the last request, \
+or the output of the last error to occur for that page."""
+license-file = ["LICENSE", "0"]
+maintainer-scripts = "pkg/debian/"
+assets = [
+    ["target/release/page-status", "/usr/bin/", "755"],
+    ["README.md", "/usr/share/doc/page-status/", "644"],
+    ["pkg/config.toml", "/etc/page-status/", "644"],
+]
+conf-files = ["/etc/page-status/config.toml"]
+systemd-units = { unit-scripts = "pkg/systemd", enable = true, start = true }
