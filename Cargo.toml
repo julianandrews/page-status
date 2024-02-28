@@ -1,6 +1,6 @@
 [package]
 name = "page-status"
-version = "1.0.0"
+version = "1.0.2"
 edition = "2021"
 authors = ["Julian Andrews <jandrews271@gmail.com>"]
 readme = "README.md"
